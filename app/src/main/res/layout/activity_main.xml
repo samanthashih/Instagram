@@ -10,29 +10,24 @@
         android:id="@+id/etCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="Write a caption..."
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnCaptureImage"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnCaptureImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Take a Picture"
-        app:layout_constraintTop_toBottomOf="@id/etCaption"
-        app:layout_constraintBottom_toTopOf="@+id/ivPostImage"
-        tools:layout_editor_absoluteX="2dp" />
+        app:layout_constraintTop_toBottomOf="@+id/etCaption"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ImageView
         android:id="@+id/ivPostImage"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnCaptureImage"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="96dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -40,16 +35,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Post"
-        app:layout_constraintTop_toBottomOf="@id/ivPostImage"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintTop_toBottomOf="@id/ivPostImage" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="366dp"
         android:text="logout"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toBottomOf="@+id/btnFeed" />
+
+    <Button
+        android:id="@+id/btnFeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="feed"
+        app:layout_constraintTop_toBottomOf="@+id/btnPost" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
