@@ -6,51 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/etCaption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Write a caption..."
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/btnLogout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="366dp"-->
+<!--        android:text="logout"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnFeed" />-->
 
-    <Button
-        android:id="@+id/btnCaptureImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Take a Picture"
-        app:layout_constraintTop_toBottomOf="@+id/etCaption"
-        tools:layout_editor_absoluteX="0dp" />
+<!--    <Button-->
+<!--        android:id="@+id/btnFeed"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="feed" />-->
 
-    <ImageView
-        android:id="@+id/ivPostImage"
+    <FrameLayout
+        android:id="@+id/flContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/btnCaptureImage"
-        tools:layout_editor_absoluteX="0dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_height="0dp"
+        android:layout_above="@id/bottomNavigation"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation" />
 
-    <Button
-        android:id="@+id/btnPost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Post"
-        app:layout_constraintTop_toBottomOf="@id/ivPostImage" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="366dp"
-        android:text="logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnFeed" />
-
-    <Button
-        android:id="@+id/btnFeed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="feed"
-        app:layout_constraintTop_toBottomOf="@+id/btnPost" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/menu_bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

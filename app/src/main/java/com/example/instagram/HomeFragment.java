@@ -1,16 +1,19 @@
 package com.example.instagram;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -18,28 +21,47 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity {
+public class HomeFragment extends Fragment {
     private static final String TAG = "FeedActivity";
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvPosts;
     private PostsAdapter adapter;
     private List<Post> posts;
 
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "on create");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed);
-        initViews();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        Log.i(TAG, "on create view");
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "on view created");
+        initViews(view);
         queryPosts();
     }
 
-    private void initViews() {
-        rvPosts = findViewById(R.id.rvPosts);
+    private void initViews(@NonNull View view) {
+        Log.i(TAG, "init views");
+        rvPosts = view.findViewById(R.id.rvPosts);
         posts = new ArrayList<>();
-        adapter = new PostsAdapter(this, posts);
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        adapter = new PostsAdapter(getContext(), posts);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -63,6 +85,7 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void queryPosts() {
+        Log.i(TAG, "query posts");
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class); // specify what type of data we want to query - Post.class on parstagram database
         query.include(Post.KEY_USER); // include data referred by current user
         query.setLimit(20); // only want last 20 photos
