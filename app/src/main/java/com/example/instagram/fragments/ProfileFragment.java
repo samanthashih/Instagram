@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -32,6 +33,7 @@ public class ProfileFragment extends PostFragment {
     private RecyclerView rvPosts;
     private PostsAdapter adapter;
     private List<Post> posts;
+    private GridLayoutManager gridLayoutManager;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -61,9 +63,10 @@ public class ProfileFragment extends PostFragment {
         rvPosts = view.findViewById(R.id.rvPosts);
         posts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), posts);
+        gridLayoutManager = new GridLayoutManager(getContext(), 3);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPosts.setLayoutManager(gridLayoutManager);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
