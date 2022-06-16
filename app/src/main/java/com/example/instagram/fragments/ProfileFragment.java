@@ -91,6 +91,7 @@ public class ProfileFragment extends PostFragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class); // specify what type of data we want to query - Post.class
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         query.include(Post.KEY_USER); // include data referred by current user
+        query.addDescendingOrder("createdAt"); // get the newer photos first so sort by createdAt column
         query.findInBackground(new FindCallback<Post>() {
 
             @Override
