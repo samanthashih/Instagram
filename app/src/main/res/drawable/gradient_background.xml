@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <gradient android:angle="45"
+                android:startColor="@color/instagram_pink"
+                android:endColor="@color/instagram_orange"
+                android:type="linear"
+                />
+        </shape>
+    </item>
+
+</selector>
