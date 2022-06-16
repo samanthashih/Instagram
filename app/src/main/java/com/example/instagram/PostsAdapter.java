@@ -2,8 +2,10 @@ package com.example.instagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.RoundedCorner;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,11 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
 import java.util.List;
+
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
     private static final String TAG = "PostsAdapter";
@@ -58,12 +62,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     // viewholder class
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvUsername;
+        TextView tvUsername2;
+        ImageView ivProfilePic;
         ImageView ivImage;
         TextView tvCaption;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvUsername2 = itemView.findViewById(R.id.tvUsername2);
+            ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvCaption = itemView.findViewById(R.id.tvCaption);
             itemView.setOnClickListener(this);
@@ -71,6 +79,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         public void bind(Post post) {
             tvUsername.setText(post.getUser().getUsername());
+            tvUsername2.setText(post.getUser().getUsername());
+            ParseFile profilePic = post.getProfilePic();
+            Log.i(TAG, post.getCaption());
+            if (profilePic != null) {
+                Glide.with(context)
+                        .load(profilePic.getUrl())
+                        .transform(new RoundedCorners(100))
+                        .into(ivProfilePic);
+            }
+            else {
+                Glide.with(context)
+                        .load(R.drawable.default_pfp)
+                        .transform(new RoundedCorners(100))
+                        .into(ivProfilePic);
+            }
+
             tvCaption.setText(post.getCaption());
             ParseFile image = post.getImage();
             if (image != null) {

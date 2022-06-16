@@ -13,6 +13,7 @@ import java.util.Date;
 public class Post extends ParseObject {
     public static final String KEY_CAPTION = "caption";
     public static final String KEY_IMAGE = "image";
+    public static final String KEY_PROFILE_PIC = "profilePic";
     public static final String KEY_USER = "user";
 
     public String getCaption() {
@@ -27,6 +28,13 @@ public class Post extends ParseObject {
     }
     public void setImage(ParseFile parseFile) {
         put(KEY_IMAGE, parseFile);
+    }
+
+    public ParseFile getProfilePic() {
+        return getUser().getParseFile(KEY_PROFILE_PIC);
+    }
+    public void setProfilePic(ParseFile parseFile) {
+        getUser().put(KEY_PROFILE_PIC, parseFile);
     }
 
     public ParseUser getUser() {

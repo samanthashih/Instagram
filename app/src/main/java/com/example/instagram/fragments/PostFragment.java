@@ -161,6 +161,7 @@ public class PostFragment extends Fragment {
     private void savePost(String caption, ParseUser currentUser, File photoFile) {
         Post post = new Post();
         post.setCaption(caption);
+        post.setProfilePic(currentUser.getParseFile("profilePic"));
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
@@ -177,7 +178,7 @@ public class PostFragment extends Fragment {
         });
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class); // specify what type of data we want to query - Post.class
         query.include(Post.KEY_USER); // include data referred by current user
         query.findInBackground(new FindCallback<Post>() {
