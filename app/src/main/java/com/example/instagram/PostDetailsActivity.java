@@ -13,9 +13,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 
 import org.parceler.Parcels;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +34,8 @@ public class PostDetailsActivity extends AppCompatActivity {
     ImageView ivProfilePic;
     TextView tvCaption;
     TextView tvTimestamp;
+    TextView tvLikeCount;
+    int numLikes = 0;
 
 
     @Override
@@ -43,6 +49,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         ivProfilePic = findViewById(R.id.ivProfilePic);
         tvCaption = findViewById(R.id.tvCaption);
         tvTimestamp = findViewById(R.id.tvTimestamp);
+        tvLikeCount = findViewById(R.id.tvLikeCount);
         ParseFile profilePic = post.getProfilePic();
         if (profilePic != null) {
             Glide.with(this)
@@ -60,6 +67,8 @@ public class PostDetailsActivity extends AppCompatActivity {
         tvUsername.setText(post.getUser().getUsername());
         tvUsername2.setText(post.getUser().getUsername());
 
+        getNumLikes(post);
+        tvLikeCount.setText(String.valueOf(numLikes));
         ParseFile image = post.getImage();
         if (image != null) {
             Glide.with(this)
@@ -71,5 +80,23 @@ public class PostDetailsActivity extends AppCompatActivity {
         Date createdAt = post.getCreatedAt();
         tvTimestamp.setText(Post.calculateTimeAgo(createdAt));
 
+    }
+
+    protected void getNumLikes(Post post) {
+        ParseQuery<Like> query = ParseQuery.getQuery(Like.class); // specify what type of data we want to query - Post.class
+        query.whereEqualTo(Like.KEY_POST, post);
+        query.include(Like.KEY_USER);
+        query.include(Like.KEY_POST);
+        query.findInBackground(new FindCallback<Like>() {
+            @Override
+            public void done(List<Like> likes, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "issue with getting likes", e);
+                    return;
+                }
+                numLikes = likes.size();
+            }
+        });
+        System.out.println(post.getCaption()+ " likes: " + numLikes);
     }
 }
