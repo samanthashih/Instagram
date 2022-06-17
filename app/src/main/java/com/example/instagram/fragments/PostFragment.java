@@ -161,7 +161,6 @@ public class PostFragment extends Fragment {
     private void savePost(String caption, ParseUser currentUser, File photoFile) {
         Post post = new Post();
         post.setCaption(caption);
-        post.setProfilePic(currentUser.getParseFile("profilePic"));
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
