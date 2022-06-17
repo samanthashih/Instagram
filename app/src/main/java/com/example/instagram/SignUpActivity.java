@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class SignUpActivity extends AppCompatActivity {
+    private final static String TAG = "SignUpActivity";
     private EditText etUsername;
     private EditText etPassword;
     private Button btnSignUp;
@@ -22,6 +24,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "sign up");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
